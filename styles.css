@@ -785,6 +785,20 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   gap: 14px;
 }
 
+/* --- Featured card text overrides (placed last to beat base rules) --- */
+.services-grid .service-card--featured h3 {
+  color: #FBF8F4;
+}
+.services-grid .service-card--featured p {
+  color: rgba(247, 242, 234, 0.82);
+}
+.services-grid .service-card--featured .service-list li {
+  color: rgba(247, 242, 234, 0.75);
+}
+.services-grid .service-card--featured .service-link {
+  color: var(--amber-glow);
+}
+
 .services-note {
   margin-top: 64px;
   display: flex;
