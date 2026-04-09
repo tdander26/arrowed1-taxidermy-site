@@ -331,16 +331,29 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
 
 .nav-toggle {
   display: none;
+  position: relative;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 6px;
-  padding: 8px;
-  z-index: 101;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: rgba(15, 8, 5, 0.88);
+  border: 1px solid rgba(255, 248, 235, 0.15);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1102;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
+.nav-toggle:hover,
+.nav-toggle.open { border-color: var(--amber); }
 .nav-toggle span {
   display: block;
-  width: 26px;
+  width: 22px;
   height: 2px;
-  background: var(--off-white);
+  background: #FBF8F4;
   border-radius: 2px;
   transition: all 0.35s var(--ease-out);
   transform-origin: center;
@@ -1671,6 +1684,21 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   .logo { font-size: 1.15rem; }
   .logo-sub { font-size: 0.56rem; letter-spacing: 0.24em; }
 
+  /* Solid dark backdrop behind drawer */
+  .nav-links::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 4, 2, 0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+  }
+  .nav-links.open::before { opacity: 1; }
+
   .nav-links {
     position: fixed;
     top: 0;
@@ -1678,17 +1706,26 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
     bottom: 0;
     width: 85%;
     max-width: 360px;
-    background: linear-gradient(180deg, var(--primary-dark) 0%, var(--dark-brown) 100%);
+    background-color: #120905;
+    background-image: linear-gradient(180deg, #120905 0%, #1C0F09 100%);
     flex-direction: column;
     align-items: stretch;
     gap: 0;
     padding: 100px 32px 40px;
     transform: translateX(110%);
     transition: transform 0.5s var(--ease-out);
-    box-shadow: var(--shadow-lg);
-    border-left: 1px solid var(--border-dark);
+    box-shadow: -20px 0 60px rgba(0, 0, 0, 0.6);
+    border-left: 1px solid rgba(255, 248, 235, 0.08);
+    z-index: 1101;
   }
   .nav-links.open { transform: translateX(0); }
+
+  /* Force header solid dark when mobile nav is open */
+  body.nav-open .site-header {
+    background: rgba(15, 8, 5, 0.96);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
   .nav-links li { width: 100%; opacity: 0; transform: translateX(20px); transition: all 0.4s var(--ease-out); }
   .nav-links.open li {
     opacity: 1;
@@ -1703,15 +1740,20 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   .nav-links a {
     display: block;
     padding: 20px 0;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #FBF8F4;
     letter-spacing: 0.18em;
-    border-bottom: 1px solid var(--border-dark);
+    border-bottom: 1px solid rgba(255, 248, 235, 0.08);
   }
+  .nav-links a:not(.nav-cta):hover { color: var(--amber-glow); }
   .nav-links .nav-cta {
     margin-top: 24px;
     padding: 16px 24px;
     text-align: center;
     border-bottom: none;
+    color: var(--primary-dark);
+    background: var(--amber);
   }
   .nav-toggle { display: flex; }
 
